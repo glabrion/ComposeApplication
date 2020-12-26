@@ -23,8 +23,8 @@ class OkHttpClientModule {
         .Builder()
         .addInterceptor(loggingInterceptor)
         .addInterceptor(baseInterceptor)
-        .readTimeout(5, TimeUnit.SECONDS)
-        .connectTimeout(5, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(30, TimeUnit.SECONDS)
         .build()
 
     @Provides
