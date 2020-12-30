@@ -13,15 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import dev.chrisbanes.accompanist.glide.GlideImage
 import androidx.navigation.compose.navigate
+import dev.chrisbanes.accompanist.glide.GlideImage
 
 @Composable
 fun PhotoDetailScreen(navHostController: NavHostController, id: Long){
 
     ConstraintLayout {
         // Create references for the composables to constrain
-        val (button, text) = createRefs()
+        val (button, image) = createRefs()
 
         Button(onClick = { navHostController.navigate("photos") },
             modifier = Modifier.constrainAs(button) {
@@ -43,7 +43,7 @@ fun PhotoDetailScreen(navHostController: NavHostController, id: Long){
                     )
                 }
             },
-            modifier = Modifier.constrainAs(text) {
+            modifier = Modifier.constrainAs(image) {
                 top.linkTo(button.bottom, margin = 16.dp)
             }
         )
