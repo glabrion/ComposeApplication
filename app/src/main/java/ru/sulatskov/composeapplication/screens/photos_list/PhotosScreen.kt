@@ -1,4 +1,4 @@
-package ru.sulatskov.composeapplication.screens.photos_screen
+package ru.sulatskov.composeapplication.screens.photos_list
 
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 
 @Composable
-fun PhotosScreen(navHostController: NavHostController){
+fun PhotosListScreen(navHostController: NavHostController){
 
     Button(onClick = { navHostController.navigate("photo/${1}") }) {
         Text(text = "button")
