@@ -1,4 +1,4 @@
-package ru.sulatskov.composeapplication.theme
+package ru.sulatskov.composeapplication.ui.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.lightColors

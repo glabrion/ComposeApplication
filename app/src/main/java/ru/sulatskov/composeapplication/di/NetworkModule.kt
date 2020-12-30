@@ -3,7 +3,7 @@ package ru.sulatskov.composeapplication.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +12,7 @@ import ru.sulatskov.composeapplication.model.network.ApiInterface
 import javax.inject.Singleton
 
 @Module(includes = [OkHttpClientModule::class])
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     @Provides

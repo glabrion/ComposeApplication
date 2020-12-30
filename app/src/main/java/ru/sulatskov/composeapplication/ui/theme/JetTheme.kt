@@ -1,4 +1,4 @@
-package ru.sulatskov.composeapplication.theme
+package ru.sulatskov.composeapplication.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable

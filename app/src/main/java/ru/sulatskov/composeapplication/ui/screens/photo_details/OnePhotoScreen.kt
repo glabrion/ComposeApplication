@@ -1,4 +1,4 @@
-package ru.sulatskov.composeapplication.screens.photo_details
+package ru.sulatskov.composeapplication.ui.screens.photo_details
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ConstraintLayout

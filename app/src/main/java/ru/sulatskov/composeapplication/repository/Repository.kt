@@ -1,0 +1,3 @@
+package ru.sulatskov.composeapplication.repository
+
+interface Repository

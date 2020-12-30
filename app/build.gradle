@@ -81,8 +81,9 @@ dependencies {
   implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-rc01"
   implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-rc01"
   implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-  androidTestImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'junit:junit:4.13.1'
   androidTestImplementation 'androidx.test:rules:1.3.0'
   androidTestImplementation 'androidx.test:runner:1.3.0'
   androidTestImplementation "androidx.compose.ui:ui-test:$compose_version"
@@ -94,9 +95,17 @@ dependencies {
   implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
 
   //hilt
-  implementation "com.google.dagger:hilt-android:2.28.3-alpha"
-  kapt "com.google.dagger:hilt-android-compiler:2.28.3-alpha"
+  implementation "com.google.dagger:hilt-android:$hilt_version"
+  kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+  implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
+  kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
 
   //glide
   implementation "dev.chrisbanes.accompanist:accompanist-glide:$accompanist_version"
+
+
+  // lifecycles
+  implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+  implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+  annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 }

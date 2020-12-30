@@ -9,7 +9,7 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/Theme.ComposeApp">
-    <activity android:name="ru.sulatskov.composeapplication.MainActivity">
+    <activity android:name="ru.sulatskov.composeapplication.ui.main.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
