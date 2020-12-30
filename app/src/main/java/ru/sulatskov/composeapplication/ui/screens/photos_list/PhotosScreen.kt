@@ -38,15 +38,14 @@ fun PhotosListContent(
     isLoading: Boolean,
     navHostController: NavHostController
 ) {
-
     Scaffold(
         topBar = {
             TopAppBar(backgroundColor = JetTheme.colors.toolbar) {
                 ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-                    val (screenTitle, itemSortingType) = createRefs()
+                    val (screenTitle) = createRefs()
                     Text(
                         text = "Photos list",
-                        style = JetTheme.typography.textSmallBold,
+                        style = JetTheme.typography.textMedium,
                         color = JetTheme.colors.text,
                         modifier = Modifier.constrainAs(screenTitle) {
                             top.linkTo(parent.top)
@@ -66,7 +65,7 @@ fun PhotosListContent(
 
 @Composable
 fun PhotosList(items: List<Photo>, navHostController: NavHostController) {
-    LazyColumn {
+    LazyColumn(modifier = Modifier.padding(top = 8.dp)) {
         items(items) { photo ->
             PhotoListItem(navHostController = navHostController, photo = photo)
         }
@@ -88,31 +87,53 @@ fun PhotoListItem(
             })
             .fillMaxWidth()
     ) {
-        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+        ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+            val (image, createdAtTextDescription, createdAtText) = createRefs()
             photo.urls?.regular?.let {
                 GlideImage(
                     data = it,
                     fadeIn = true,
-                    contentScale = ContentScale.FillBounds,
+                    contentScale = ContentScale.Crop,
                     loading = {
                         Box(Modifier.fillMaxSize()) {
                             CircularProgressIndicator(
-                                color = JetTheme.colors.textAccent,
+                                color = JetTheme.colors.text,
                                 modifier = Modifier.align(Alignment.Center)
                             )
                         }
                     },
-                    modifier = Modifier.height(90.dp).width(120.dp)
+                    modifier = Modifier.height(120.dp).width(120.dp).constrainAs(image) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                    }
                 )
             }
-            photo.createdAt?.let {
+
+            Column(
+                modifier = Modifier.fillMaxSize().constrainAs(createdAtTextDescription) {
+                    top.linkTo(parent.top)
+                    start.linkTo(image.end, margin = 16.dp)
+                    bottom.linkTo(parent.bottom)
+                }
+            ) {
                 Text(
-                    text = it,
-                    style = JetTheme.typography.textSmallBold,
+                    text = "Created at",
+                    style = JetTheme.typography.textSmall,
                     color = JetTheme.colors.text,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Left,
                     modifier = Modifier.fillMaxSize()
                 )
+                photo.createdAt?.let {
+                    Text(
+                        text = it,
+                        style = JetTheme.typography.textMedium,
+                        color = JetTheme.colors.text,
+                        textAlign = TextAlign.Left,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+
             }
         }
     }

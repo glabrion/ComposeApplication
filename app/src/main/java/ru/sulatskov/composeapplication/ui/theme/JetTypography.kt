@@ -26,6 +26,16 @@ data class JetTypography internal constructor(
                 fontWeight = FontWeight.Bold,
                 lineHeight = 20.sp
         ),
+        val textMedium: TextStyle = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 20.sp
+        ),
+        val textMediumLight: TextStyle = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 20.sp
+        ),
         val materialTypography: Typography = Typography(
                 body1 = paragraph1
         )
