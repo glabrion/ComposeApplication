@@ -1,25 +1,25 @@
 package ru.sulatskov.composeapplication.ui.screens.photos_list
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ConstraintLayout
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.glide.GlideImage
-import ru.sulatskov.composeapplication.common.visible
 import ru.sulatskov.composeapplication.model.network.dto.Photo
 import ru.sulatskov.composeapplication.ui.main.MainViewModel
+import ru.sulatskov.composeapplication.ui.main.NavScreen
+import ru.sulatskov.composeapplication.ui.theme.JetTheme
 
 
 @Composable
@@ -34,49 +34,86 @@ fun PhotosListScreen(
 
 @Composable
 fun PhotosListContent(
-    items: List<Photo>?,
+    items: List<Photo>,
     isLoading: Boolean,
     navHostController: NavHostController
 ) {
 
-    ConstraintLayout {
-        val (button, progress, image) = createRefs()
-
-        Button(onClick = { navHostController.navigate("photo/${1}") },
-            modifier = Modifier.constrainAs(button) {
-                top.linkTo(parent.top, margin = 16.dp)
-            }) {
-            Text(text = items?.firstOrNull()?.id.toString())
-
-        }
-
-        CircularProgressIndicator(
-            modifier = Modifier.constrainAs(progress) {
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }.visible(isLoading)
-        )
-
-        items?.firstOrNull()?.urls?.full?.let {
-            GlideImage(
-                data = it,
-                fadeIn = true,
-                contentScale = ContentScale.FillBounds,
-                loading = {
-                    Box(Modifier.fillMaxSize()) {
-                        CircularProgressIndicator(
-                            color = Color.Green,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-                },
-                modifier = Modifier.constrainAs(image) {
-                    top.linkTo(button.bottom, margin = 16.dp)
+    Scaffold(
+        topBar = {
+            TopAppBar(backgroundColor = JetTheme.colors.toolbar) {
+                ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+                    val (screenTitle, itemSortingType) = createRefs()
+                    Text(
+                        text = "Photos list",
+                        style = JetTheme.typography.textSmallBold,
+                        color = JetTheme.colors.text,
+                        modifier = Modifier.constrainAs(screenTitle) {
+                            top.linkTo(parent.top)
+                            bottom.linkTo(parent.bottom)
+                            start.linkTo(parent.start, 12.dp)
+                        }
+                    )
                 }
-            )
+            }
+        }
+    ) {
+        Surface(color = JetTheme.colors.background) {
+            PhotosList(items = items, navHostController = navHostController)
         }
     }
 }
 
+@Composable
+fun PhotosList(items: List<Photo>, navHostController: NavHostController) {
+    LazyColumn {
+        items(items) { photo ->
+            PhotoListItem(navHostController = navHostController, photo = photo)
+        }
+    }
+}
+
+@Composable
+fun PhotoListItem(
+    navHostController: NavHostController,
+    photo: Photo
+) {
+    Card(
+        backgroundColor = JetTheme.colors.card,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .clickable(onClick = {
+                navHostController.navigate(route = "${NavScreen.PhotosDetails.route}/${photo.urls?.regular}")
+            })
+            .fillMaxWidth()
+    ) {
+        Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+            photo.urls?.regular?.let {
+                GlideImage(
+                    data = it,
+                    fadeIn = true,
+                    contentScale = ContentScale.FillBounds,
+                    loading = {
+                        Box(Modifier.fillMaxSize()) {
+                            CircularProgressIndicator(
+                                color = JetTheme.colors.textAccent,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    },
+                    modifier = Modifier.height(90.dp).width(120.dp)
+                )
+            }
+            photo.createdAt?.let {
+                Text(
+                    text = it,
+                    style = JetTheme.typography.textSmallBold,
+                    color = JetTheme.colors.text,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
+    }
+}

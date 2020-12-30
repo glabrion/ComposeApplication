@@ -15,23 +15,23 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.glide.GlideImage
+import ru.sulatskov.composeapplication.ui.main.NavScreen
 
 @Composable
-fun PhotoDetailScreen(navHostController: NavHostController, id: Long) {
+fun PhotoDetailScreen(navHostController: NavHostController, id: String) {
 
     ConstraintLayout {
         val (button, image) = createRefs()
 
-        Button(onClick = { navHostController.navigate("photos") },
+        Button(onClick = { navHostController.navigate(NavScreen.PhotosList.route) },
             modifier = Modifier.constrainAs(button) {
                 top.linkTo(parent.top, margin = 16.dp)
             }) {
-            Text(text = id.toString())
-
+            Text(text = "Back")
         }
 
         GlideImage(
-            data = "https://images.unsplash.com/photo-1606851447920-549ba0b02246?ixid=MXwxOTM1MDR8MXwxfGFsbHwxfHx8fHx8Mnw&ixlib=rb-1.2.1",
+            data = id,
             fadeIn = true,
             contentScale = ContentScale.FillBounds,
             loading = {

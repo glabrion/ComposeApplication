@@ -17,22 +17,34 @@ fun JetApp(viewModel: MainViewModel) {
     JetTheme {
         Surface(color = JetColors.background) {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "photos") {
-                composable("photos") {
+            NavHost(navController = navController, startDestination = NavScreen.PhotosList.route) {
+                composable(NavScreen.PhotosList.route) {
                     PhotosListScreen(
                         navHostController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(
-                    "photo/{photoId}",
-                    arguments = listOf(navArgument("photoId") { type = NavType.LongType })
+                    NavScreen.PhotosDetails.routeWithArgument,
+                    arguments = listOf(navArgument(NavScreen.PhotosDetails.photoIdArgument) { type = NavType.StringType })
                 ) { backStackEntry ->
-                    backStackEntry.arguments?.getLong("photoId")?.let { id ->
+                    backStackEntry.arguments?.getString(NavScreen.PhotosDetails.photoIdArgument)?.let { id ->
                         PhotoDetailScreen(navHostController = navController, id)
                     }
                 }
             }
         }
+    }
+}
+
+sealed class NavScreen(val route: String) {
+
+    object PhotosList : NavScreen("Photos")
+
+    object PhotosDetails : NavScreen("PhotosDetails") {
+
+        const val routeWithArgument: String = "PhotosDetails/{photoId}"
+
+        const val photoIdArgument: String = "photoId"
     }
 }

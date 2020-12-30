@@ -1,14 +1,14 @@
 package ru.sulatskov.composeapplication.model.network.dto
 
+import com.google.gson.annotations.SerializedName
+
 class Photo(
-    val id: String?,
-    val urls: UrlsDTO?
+    val id: String? = "",
+    val urls: UrlsDTO? = UrlsDTO(),
+    val description: String? = "",
+    val altDescription: String? = "",
+    @SerializedName("created_at")
+    val createdAt: String? = ""
 )
 
-class UrlsDTO(
-    val raw: String,
-    val full: String,
-    val regular: String,
-    val small: String,
-    val thumb: String
-)
+class UrlsDTO(val regular: String? = "")
