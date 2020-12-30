@@ -17,10 +17,9 @@ import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.glide.GlideImage
 
 @Composable
-fun PhotoDetailScreen(navHostController: NavHostController, id: Long){
+fun PhotoDetailScreen(navHostController: NavHostController, id: Long) {
 
     ConstraintLayout {
-        // Create references for the composables to constrain
         val (button, image) = createRefs()
 
         Button(onClick = { navHostController.navigate("photos") },

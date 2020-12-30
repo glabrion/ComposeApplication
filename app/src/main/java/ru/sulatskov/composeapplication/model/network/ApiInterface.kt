@@ -5,7 +5,6 @@ import retrofit2.http.Query
 import ru.sulatskov.composeapplication.common.AppConst
 import ru.sulatskov.composeapplication.model.network.dto.Photo
 
-
 interface ApiInterface {
     @GET("photos")
     suspend fun getListPhotos(

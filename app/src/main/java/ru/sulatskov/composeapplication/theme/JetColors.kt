@@ -18,8 +18,8 @@ class JetColorPalette() {
     val toolbar: Color = JetColors.toolbar
 
     val materialColors: Colors = lightColors(
-            primary = JetColors.primary,
-            surface = JetColors.background,
-            onSurface = JetColors.text
+        primary = JetColors.primary,
+        surface = JetColors.background,
+        onSurface = JetColors.text
     )
 }

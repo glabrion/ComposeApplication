@@ -13,7 +13,7 @@ import ru.sulatskov.composeapplication.theme.JetColors
 import ru.sulatskov.composeapplication.theme.JetTheme
 
 @Composable
-fun JetApp(){
+fun JetApp() {
     JetTheme {
         Surface(color = JetColors.background) {
             val navController = rememberNavController()

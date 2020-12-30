@@ -12,12 +12,12 @@ fun JetTheme(
 ) {
     val colors = JetColorPalette()
     Providers(
-            AmbientJetColor provides colors,
-            AmbientJetTypography provides typography,
+        AmbientJetColor provides colors,
+        AmbientJetTypography provides typography,
     ) {
         MaterialTheme(
-                colors = colors.materialColors,
-                typography = typography.materialTypography
+            colors = colors.materialColors,
+            typography = typography.materialTypography
         ) {
             content()
         }

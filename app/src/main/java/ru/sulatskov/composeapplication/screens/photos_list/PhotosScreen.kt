@@ -10,12 +10,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 
 @Composable
-fun PhotosListScreen(navHostController: NavHostController){
-
-
+fun PhotosListScreen(navHostController: NavHostController) {
 
     ConstraintLayout {
-        // Create references for the composables to constrain
         val (button) = createRefs()
 
         Button(onClick = { navHostController.navigate("photo/${1}") },
