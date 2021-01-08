@@ -44,7 +44,7 @@ fun PhotosListContent(
                 ConstraintLayout(modifier = Modifier.fillMaxSize()) {
                     val (screenTitle) = createRefs()
                     Text(
-                        text = stringResource(R.string.photo_list_text),
+                        text = stringResource(R.string.home_text),
                         style = JetTheme.typography.toolbarTitle,
                         color = JetTheme.colors.text,
                         modifier = Modifier.constrainAs(screenTitle) {
@@ -102,7 +102,9 @@ fun PhotoListItem(
                         )
                     }
                 },
-                modifier = Modifier.height(120.dp).fillMaxSize()
+                modifier = Modifier
+                    .height(120.dp)
+                    .fillMaxSize()
             )
         }
     }
@@ -125,14 +127,18 @@ fun <T> LazyGrid(
             Row {
                 item.forEachIndexed { rowIndex, item ->
                     Box(
-                        modifier = Modifier.weight(1F).align(Alignment.Top),
+                        modifier = Modifier
+                            .weight(1F)
+                            .align(Alignment.Top),
                         contentAlignment = Alignment.Center
                     ) {
                         itemContent(item)
                     }
                 }
                 repeat(rows - item.size) {
-                    Box(modifier = Modifier.weight(1F).padding(2.dp)) {}
+                    Box(modifier = Modifier
+                        .weight(1F)
+                        .padding(2.dp)) {}
                 }
             }
         }

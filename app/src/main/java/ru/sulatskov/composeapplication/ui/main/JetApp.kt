@@ -1,5 +1,6 @@
 package ru.sulatskov.composeapplication.ui.main
 
+import android.content.Context
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -13,7 +14,7 @@ import ru.sulatskov.composeapplication.ui.theme.JetColors
 import ru.sulatskov.composeapplication.ui.theme.JetTheme
 
 @Composable
-fun JetApp(viewModel: MainViewModel) {
+fun JetApp(viewModel: MainViewModel, context: Context) {
     JetTheme {
         Surface(color = JetColors.background) {
             val navController = rememberNavController()
@@ -29,8 +30,7 @@ fun JetApp(viewModel: MainViewModel) {
                     arguments = listOf(navArgument(NavScreen.PhotosDetails.photoIdArgument) { type = NavType.StringType })
                 ) { backStackEntry ->
                     backStackEntry.arguments?.getString(NavScreen.PhotosDetails.photoIdArgument)?.let { id ->
-                        viewModel.getPhoto(id)
-                        PhotoDetailScreen(navHostController = navController, viewModel = viewModel, id = id)
+                        PhotoDetailScreen(navHostController = navController, viewModel = viewModel, id = id, context = context)
                     }
                 }
             }

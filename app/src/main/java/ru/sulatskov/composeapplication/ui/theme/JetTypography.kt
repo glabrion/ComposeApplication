@@ -28,6 +28,11 @@ data class JetTypography internal constructor(
                 fontWeight = FontWeight.Normal,
                 lineHeight = 20.sp
         ),
+        val textSmallerLight: TextStyle = TextStyle(
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 20.sp
+        ),
         val textSmallBold: TextStyle = TextStyle(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,

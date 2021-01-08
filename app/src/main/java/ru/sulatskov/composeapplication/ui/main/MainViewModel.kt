@@ -10,25 +10,33 @@ import ru.sulatskov.composeapplication.repository.MainRepository
 class MainViewModel @ViewModelInject constructor(private val mainRepository: MainRepository) :
     ViewModel() {
 
+    private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
+
     val photosList: LiveData<List<Photo>> =
-        liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-            emitSource(
-                mainRepository.loadPhotos().asLiveData()
-            )
+        try {
+            liveData(coroutineContext) {
+                emitSource(
+                    mainRepository.loadPhotos().asLiveData()
+                )
+            }
+
+        } catch (t: Throwable) {
+            t.printStackTrace()
+            MutableLiveData()
         }
+
     lateinit var photo: LiveData<Photo>
 
     fun getPhoto(id: String) {
-        try {
-            val currentPhoto =
-                liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
-                    emitSource(
-                        mainRepository.loadPhoto(id = id).asLiveData()
-                    )
-                }
-            photo = currentPhoto
+        photo = try {
+            liveData(coroutineContext) {
+                emitSource(
+                    mainRepository.loadPhoto(id = id).asLiveData()
+                )
+            }
         } catch (t: Throwable) {
             t.printStackTrace()
+            MutableLiveData()
         }
     }
 

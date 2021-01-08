@@ -4,13 +4,16 @@ import com.google.gson.annotations.SerializedName
 
 class Photo(
     val id: String? = "",
-    val urls: UrlsDTO? = UrlsDTO(),
+    val urls: Urls? = Urls(),
     val description: String? = "",
     @SerializedName("created_at")
     val createdAt: String? = "",
     val likes: Int? = 0,
+    val location: Location? = Location(),
     val user: User? = User()
 )
+
+class Location(val title: String = "")
 
 class User(
     val username: String = "",
@@ -21,4 +24,4 @@ class User(
 
 class ProfileImage(val medium: String = "")
 
-class UrlsDTO(val regular: String? = null)
+class Urls(val regular: String? = "")

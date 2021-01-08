@@ -1,4 +1,7 @@
 <resources>
   <string name="app_name">Compose Application</string>
-    <string name="photo_list_text">Photos list</string>
+    <string name="home_text">Home</string>
+    <string name="back">Back</string>
+    <string name="description">Description: </string>
+    <string name="likes">Likes: </string>
 </resources>

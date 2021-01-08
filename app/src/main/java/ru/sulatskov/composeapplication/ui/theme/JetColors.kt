@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 object JetColors {
 
     val primary = Color(0xFF1B8CD6)
-    val background = Color(0xFFE7E7E7)
+    val background = Color(0xFFF7F7F7)
     val text = Color(0xFF000000)
     val toolbar = Color(0xFFFFFFFF)
     val card = Color(0xFFFFFFFF)

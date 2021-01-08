@@ -5,7 +5,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import ru.sulatskov.composeapplication.model.network.ApiInterface
-import ru.sulatskov.composeapplication.model.network.dto.Photo
 import javax.inject.Inject
 
 class MainRepository @Inject constructor(
@@ -14,7 +13,6 @@ class MainRepository @Inject constructor(
 
     @WorkerThread
     suspend fun loadPhotos() = flow {
-        val photos: List<Photo> = emptyList()
         apiService.getListPhotos(1).apply {
             emit(this)
         }
