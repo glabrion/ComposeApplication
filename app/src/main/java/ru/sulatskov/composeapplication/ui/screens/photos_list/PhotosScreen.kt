@@ -12,10 +12,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.glide.GlideImage
+import ru.sulatskov.composeapplication.R
 import ru.sulatskov.composeapplication.model.network.dto.Photo
 import ru.sulatskov.composeapplication.ui.main.MainViewModel
 import ru.sulatskov.composeapplication.ui.main.NavScreen
@@ -28,14 +30,12 @@ fun PhotosListScreen(
     viewModel: MainViewModel
 ) {
     val photos: List<Photo> by viewModel.photosList.observeAsState(listOf())
-    val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
-    PhotosListContent(photos, isLoading, navHostController)
+    PhotosListContent(photos, navHostController)
 }
 
 @Composable
 fun PhotosListContent(
     items: List<Photo>,
-    isLoading: Boolean,
     navHostController: NavHostController
 ) {
     Scaffold(
@@ -44,7 +44,7 @@ fun PhotosListContent(
                 ConstraintLayout(modifier = Modifier.fillMaxSize()) {
                     val (screenTitle) = createRefs()
                     Text(
-                        text = "Photos list",
+                        text = stringResource(R.string.photo_list_text),
                         style = JetTheme.typography.toolbarTitle,
                         color = JetTheme.colors.text,
                         modifier = Modifier.constrainAs(screenTitle) {
@@ -85,7 +85,7 @@ fun PhotoListItem(
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
             .clickable(onClick = {
-                navHostController.navigate(route = "${NavScreen.PhotosDetails.route}/${photo.urls?.regular}")
+                navHostController.navigate(route = "${NavScreen.PhotosDetails.route}/${photo.id}")
             })
             .fillMaxWidth()
     ) {

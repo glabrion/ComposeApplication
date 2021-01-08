@@ -6,9 +6,19 @@ class Photo(
     val id: String? = "",
     val urls: UrlsDTO? = UrlsDTO(),
     val description: String? = "",
-    val altDescription: String? = "",
     @SerializedName("created_at")
-    val createdAt: String? = ""
+    val createdAt: String? = "",
+    val likes: Int? = 0,
+    val user: User? = User()
 )
 
-class UrlsDTO(val regular: String? = "")
+class User(
+    val username: String = "",
+    val name: String = "",
+    @SerializedName("profile_image")
+    val profileImage: ProfileImage = ProfileImage()
+)
+
+class ProfileImage(val medium: String = "")
+
+class UrlsDTO(val regular: String? = null)

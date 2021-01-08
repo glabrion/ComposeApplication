@@ -13,13 +13,19 @@ class MainRepository @Inject constructor(
 ) : Repository {
 
     @WorkerThread
-    suspend fun loadPhotos(
-        onSuccess: () -> Unit) = flow {
+    suspend fun loadPhotos() = flow {
         val photos: List<Photo> = emptyList()
         apiService.getListPhotos(1).apply {
-            // handle the case when the API request gets a success response.
             emit(this)
-            onSuccess()
+        }
+    }.flowOn(Dispatchers.IO)
+
+    @WorkerThread
+    suspend fun loadPhoto(
+        id: String
+    ) = flow {
+        apiService.getPhoto(id = id).apply {
+            emit(this)
         }
     }.flowOn(Dispatchers.IO)
 }

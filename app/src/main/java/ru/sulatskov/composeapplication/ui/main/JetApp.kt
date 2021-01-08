@@ -29,7 +29,8 @@ fun JetApp(viewModel: MainViewModel) {
                     arguments = listOf(navArgument(NavScreen.PhotosDetails.photoIdArgument) { type = NavType.StringType })
                 ) { backStackEntry ->
                     backStackEntry.arguments?.getString(NavScreen.PhotosDetails.photoIdArgument)?.let { id ->
-                        PhotoDetailScreen(navHostController = navController, id)
+                        viewModel.getPhoto(id)
+                        PhotoDetailScreen(navHostController = navController, viewModel = viewModel, id = id)
                     }
                 }
             }
