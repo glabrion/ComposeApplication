@@ -11,6 +11,13 @@ data class JetTypography internal constructor(
                 fontWeight = FontWeight.Normal,
                 lineHeight = 20.sp
         ),
+
+        val toolbarTitle: TextStyle = TextStyle(
+                fontWeight = FontWeight.Medium,
+                fontSize = 20.sp,
+                letterSpacing = 0.15.sp
+        ),
+
         val textSmallLight: TextStyle = TextStyle(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
