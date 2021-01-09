@@ -7,7 +7,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -23,8 +22,6 @@ class OkHttpClientModule {
         .Builder()
         .addInterceptor(loggingInterceptor)
         .addInterceptor(baseInterceptor)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .connectTimeout(30, TimeUnit.SECONDS)
         .build()
 
     @Provides

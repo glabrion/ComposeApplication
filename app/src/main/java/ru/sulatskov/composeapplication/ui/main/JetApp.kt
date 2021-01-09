@@ -27,11 +27,19 @@ fun JetApp(viewModel: MainViewModel, context: Context) {
                 }
                 composable(
                     NavScreen.PhotosDetails.routeWithArgument,
-                    arguments = listOf(navArgument(NavScreen.PhotosDetails.photoIdArgument) { type = NavType.StringType })
+                    arguments = listOf(navArgument(NavScreen.PhotosDetails.photoIdArgument) {
+                        type = NavType.StringType
+                    })
                 ) { backStackEntry ->
-                    backStackEntry.arguments?.getString(NavScreen.PhotosDetails.photoIdArgument)?.let { id ->
-                        PhotoDetailScreen(navHostController = navController, viewModel = viewModel, id = id, context = context)
-                    }
+                    backStackEntry.arguments?.getString(NavScreen.PhotosDetails.photoIdArgument)
+                        ?.let { id ->
+                            PhotoDetailScreen(
+                                navHostController = navController,
+                                viewModel = viewModel,
+                                id = id,
+                                context = context
+                            )
+                        }
                 }
             }
         }

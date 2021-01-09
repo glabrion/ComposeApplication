@@ -136,9 +136,11 @@ fun <T> LazyGrid(
                     }
                 }
                 repeat(rows - item.size) {
-                    Box(modifier = Modifier
-                        .weight(1F)
-                        .padding(2.dp)) {}
+                    Box(
+                        modifier = Modifier
+                            .weight(1F)
+                            .padding(2.dp)
+                    ) {}
                 }
             }
         }

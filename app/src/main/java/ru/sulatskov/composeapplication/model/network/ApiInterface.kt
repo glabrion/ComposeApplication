@@ -16,5 +16,6 @@ interface ApiInterface {
     @GET("photos/{id}")
     suspend fun getPhoto(
         @Path("id") id: String,
-        @Query("client_id") clientId: String = AppConst.ACCESS_KEY): Photo
+        @Query("client_id") clientId: String = AppConst.ACCESS_KEY
+    ): Photo
 }

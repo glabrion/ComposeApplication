@@ -12,18 +12,29 @@ class MainRepository @Inject constructor(
 ) : Repository {
 
     @WorkerThread
-    suspend fun loadPhotos() = flow {
-        apiService.getListPhotos(1).apply {
-            emit(this)
+    suspend fun loadPhotos(onError: () -> Unit) = flow {
+        try {
+            apiService.getListPhotos(1).apply {
+                emit(this)
+            }
+        } catch (t: Throwable) {
+            t.printStackTrace()
+            onError.invoke()
         }
     }.flowOn(Dispatchers.IO)
 
     @WorkerThread
     suspend fun loadPhoto(
+        onError: () -> Unit,
         id: String
     ) = flow {
-        apiService.getPhoto(id = id).apply {
-            emit(this)
+        try {
+            apiService.getPhoto(id = id).apply {
+                emit(this)
+            }
+        } catch (t: Throwable) {
+            t.printStackTrace()
+            onError.invoke()
         }
     }.flowOn(Dispatchers.IO)
 }

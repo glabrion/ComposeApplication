@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import dev.chrisbanes.accompanist.glide.GlideImage
 import ru.sulatskov.composeapplication.R
-import ru.sulatskov.composeapplication.common.getDate
+import ru.sulatskov.composeapplication.common.TimeUtils
 import ru.sulatskov.composeapplication.model.network.dto.Photo
 import ru.sulatskov.composeapplication.ui.main.MainViewModel
 import ru.sulatskov.composeapplication.ui.theme.JetTheme
@@ -167,7 +167,7 @@ fun PhotoDetailScreen(
                         photo?.createdAt?.let {
                             Text(
                                 style = JetTheme.typography.textSmallerLight,
-                                text = getDate(context, it),
+                                text = TimeUtils.getDate(context, it),
                                 modifier = Modifier
                                     .padding(top = 4.dp, end = 16.dp, bottom = 16.dp)
                             )

@@ -4,4 +4,5 @@
     <string name="back">Back</string>
     <string name="description">Description: </string>
     <string name="likes">Likes:</string>
+    <string name="error_internet_connection">Internet connection error</string>
 </resources>

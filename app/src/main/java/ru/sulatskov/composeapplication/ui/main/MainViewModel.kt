@@ -12,14 +12,16 @@ class MainViewModel @ViewModelInject constructor(private val mainRepository: Mai
 
     private val coroutineContext = viewModelScope.coroutineContext + Dispatchers.IO
 
+    private val _error: MutableLiveData<Any> = MutableLiveData()
+    val error: LiveData<Any> get() = _error
+
     val photosList: LiveData<List<Photo>> =
         try {
             liveData(coroutineContext) {
-                emitSource(
-                    mainRepository.loadPhotos().asLiveData()
-                )
+                emitSource(mainRepository.loadPhotos {
+                    _error.postValue(this)
+                }.asLiveData())
             }
-
         } catch (t: Throwable) {
             t.printStackTrace()
             MutableLiveData()
@@ -30,9 +32,9 @@ class MainViewModel @ViewModelInject constructor(private val mainRepository: Mai
     fun getPhoto(id: String) {
         photo = try {
             liveData(coroutineContext) {
-                emitSource(
-                    mainRepository.loadPhoto(id = id).asLiveData()
-                )
+                emitSource(mainRepository.loadPhoto({
+                    _error.postValue(this)
+                }, id = id).asLiveData())
             }
         } catch (t: Throwable) {
             t.printStackTrace()
