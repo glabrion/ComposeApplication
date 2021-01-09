@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">Compose Application</string>
+    <string name="home_text">Публикации</string>
+    <string name="back">Назад</string>
+    <string name="description">Описание: </string>
+    <string name="likes">Нравится: </string>
+</resources>

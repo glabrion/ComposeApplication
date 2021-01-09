@@ -1,6 +1,7 @@
 package ru.sulatskov.composeapplication.ui.screens.photo_details
 
 import android.content.Context
+import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -37,7 +38,7 @@ fun PhotoDetailScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(R.string.back))
+                    photo?.user?.name?.let { Text(text = it) }
                 },
                 navigationIcon = {
                     IconButton(onClick = { navHostController.navigateUp() }) {
@@ -52,130 +53,130 @@ fun PhotoDetailScreen(
         Surface(
             color = JetTheme.colors.background,
             modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
+                .fillMaxSize()
         ) {
-            ConstraintLayout {
-                val (profileImage, username, image, like, description, createdAt) = createRefs()
+            ScrollableColumn {
+                ConstraintLayout {
+                    val (profileImage, username, image, like) = createRefs()
 
-                photo?.user?.profileImage?.medium?.let {
-                    GlideImage(
-                        data = it,
-                        fadeIn = true,
-                        contentScale = ContentScale.None,
-                        loading = {
-                            Box(Modifier.fillMaxSize()) {
-                                CircularProgressIndicator(
-                                    color = JetTheme.colors.text,
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
-                            }
-                        },
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                            .constrainAs(profileImage) {
-                                top.linkTo(parent.top, margin = 16.dp)
-                                start.linkTo(parent.start, margin = 16.dp)
-                            }
-                            .clip(RoundedCornerShape(10.dp))
-                    )
-                }
-
-                photo?.user?.username?.let {
-                    Column(
-                        modifier = Modifier
-                            .constrainAs(username) {
-                                start.linkTo(profileImage.end, margin = 16.dp)
-                                top.linkTo(profileImage.top)
-                                bottom.linkTo(profileImage.bottom)
-                            }) {
-                        Text(
-                            text = it,
-                            style = JetTheme.typography.textSmallBold
+                    photo?.user?.profileImage?.medium?.let {
+                        GlideImage(
+                            data = it,
+                            fadeIn = true,
+                            contentScale = ContentScale.None,
+                            loading = {
+                                Box(Modifier.fillMaxSize()) {
+                                    CircularProgressIndicator(
+                                        color = JetTheme.colors.text,
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
+                                }
+                            },
+                            modifier = Modifier
+                                .height(40.dp)
+                                .width(40.dp)
+                                .constrainAs(profileImage) {
+                                    top.linkTo(parent.top, margin = 16.dp)
+                                    start.linkTo(parent.start, margin = 16.dp)
+                                }
+                                .clip(RoundedCornerShape(14.dp))
                         )
-                        photo?.location?.title?.let {
+                    }
+
+                    photo?.user?.username?.let {
+                        Column(
+                            modifier = Modifier
+                                .constrainAs(username) {
+                                    start.linkTo(profileImage.end, margin = 16.dp)
+                                    top.linkTo(profileImage.top)
+                                    bottom.linkTo(profileImage.bottom)
+                                }) {
                             Text(
                                 text = it,
-                                style = JetTheme.typography.textSmall
+                                style = JetTheme.typography.textSmallBold
                             )
-                        }
-                    }
-                }
-
-                photo?.urls?.regular?.let {
-                    GlideImage(
-                        data = it,
-                        fadeIn = true,
-                        contentScale = ContentScale.Fit,
-                        loading = {
-                            Box(Modifier.fillMaxSize()) {
-                                CircularProgressIndicator(
-                                    color = Color.Black,
-                                    modifier = Modifier.align(Alignment.Center)
+                            photo?.location?.title?.let {
+                                Text(
+                                    text = it,
+                                    style = JetTheme.typography.textSmall
                                 )
                             }
-                        },
-                        modifier = Modifier
-                            .height(250.dp)
-                            .fillMaxWidth()
-                            .constrainAs(image) {
-                                top.linkTo(profileImage.bottom, margin = 16.dp)
-                            }
-                    )
-
-                }
-
-                Column(modifier = Modifier.constrainAs(like) {
-                    top.linkTo(image.bottom, margin = 16.dp)
-                    start.linkTo(parent.start, margin = 16.dp)
-                }) {
-                    photo?.likes?.let { likes ->
-                        Row{
-                            Text(
-                                style = JetTheme.typography.textSmallBold,
-                                text = stringResource(R.string.likes),
-                            )
-                            Text(
-                                style = JetTheme.typography.textSmallBold,
-                                text = likes.toString(),
-                                modifier = Modifier.padding(start = 6.dp)
-                            )
                         }
                     }
 
-                    photo?.description?.let {
-
-                        Row(
+                    photo?.urls?.regular?.let {
+                        GlideImage(
+                            data = it,
+                            fadeIn = true,
+                            contentScale = ContentScale.Fit,
+                            loading = {
+                                Box(Modifier.fillMaxSize()) {
+                                    CircularProgressIndicator(
+                                        color = Color.Black,
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
+                                }
+                            },
                             modifier = Modifier
-                                .padding(top = 16.dp, end = 16.dp)
-                        ) {
-                            Text(
-                                style = JetTheme.typography.textSmallBold,
-                                text = stringResource(R.string.description),
-                            )
-                            Text(
-                                style = JetTheme.typography.textSmall,
-                                text = it,
-                                modifier = Modifier.padding(start = 6.dp, end = 16.dp)
-                            )
-                        }
-                    }
-
-                    photo?.createdAt?.let {
-                        Text(
-                            style = JetTheme.typography.textSmallerLight,
-                            text = getDate(context, it),
-                            modifier = Modifier
-                                .padding(top = 16.dp, end = 16.dp)
+                                .height(250.dp)
+                                .fillMaxWidth()
+                                .constrainAs(image) {
+                                    top.linkTo(profileImage.bottom, margin = 16.dp)
+                                }
                         )
+                    }
+
+                    Column(modifier = Modifier.constrainAs(like) {
+                        top.linkTo(image.bottom, margin = 16.dp)
+                        start.linkTo(parent.start, margin = 16.dp)
+                    }) {
+                        photo?.likes?.let { likes ->
+                            Row {
+                                Text(
+                                    style = JetTheme.typography.textSmallBold,
+                                    text = stringResource(R.string.likes),
+                                )
+                                Text(
+                                    style = JetTheme.typography.textSmallBold,
+                                    text = likes.toString(),
+                                    modifier = Modifier.padding(start = 4.dp)
+                                )
+                            }
+                        }
+
+                        photo?.description?.let {
+
+                            Row(
+                                modifier = Modifier
+                                    .padding(top = 4.dp, end = 16.dp)
+                            ) {
+                                photo?.user?.username?.let { username ->
+                                    Text(
+                                        style = JetTheme.typography.textSmallBold,
+                                        text = username,
+                                    )
+                                }
+                                Text(
+                                    style = JetTheme.typography.textSmall,
+                                    text = it,
+                                    modifier = Modifier.padding(start = 6.dp, end = 16.dp)
+                                )
+                            }
+                        }
+
+                        photo?.createdAt?.let {
+                            Text(
+                                style = JetTheme.typography.textSmallerLight,
+                                text = getDate(context, it),
+                                modifier = Modifier
+                                    .padding(top = 4.dp, end = 16.dp, bottom = 16.dp)
+                            )
+                        }
                     }
                 }
             }
         }
     }
-
-
 }
 
 
