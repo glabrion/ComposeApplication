@@ -1,6 +1,6 @@
 # ComposeApplication
 
-App displays a list of photo, detail is available
+Displays a list of photo and detail of photo
 
 stack:
 Сompose + Navigation-compose + MVVM + Coroutines + Retrofit2 + Hilt + Accompanist-glide (Glide for Jetpack Compose)
