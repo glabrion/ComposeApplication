@@ -1,15 +1,15 @@
 
 buildscript {
-  ext.kotlin_version = '1.jpg.4.21'
-  ext.compose_version = '1.jpg.0.0-alpha09'
-  ext.coroutines_version = '1.jpg.4.1.jpg'
-  ext.retrofit_version = '2.jpg.9.0'
-  ext.logging_interceptor_version = '4.7.2.jpg'
-  ext.accompanist_version = '0.4.1.jpg'
-  ext.compose_navigation = '1.jpg.0.0-alpha04'
-  ext.hilt_version = '2.jpg.30.1.jpg-alpha'
-  ext.hilt_jetpack_version = '1.jpg.0.0-alpha02'
-  ext.lifecycle_version = '1.jpg.1.jpg.1.jpg'
+  ext.kotlin_version = '1.4.21'
+  ext.compose_version = '1.0.0-alpha09'
+  ext.coroutines_version = '1.4.1.jpg'
+  ext.retrofit_version = '2.9.0'
+  ext.hilt_version = '2.30.1-alpha'
+  ext.logging_interceptor_version = '4.7.2'
+  ext.accompanist_version = '0.4.1'
+  ext.compose_navigation = '1.0.0-alpha04'
+  ext.hilt_jetpack_version = '1.0.0-alpha02'
+  ext.lifecycle_version = '1.1.1'
 
   repositories {
     google()
@@ -19,7 +19,7 @@ buildscript {
   dependencies {
     classpath 'com.android.tools.build:gradle:7.0.0-alpha04'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    classpath 'com.google.dagger:hilt-android-gradle-plugin:2.jpg.30.1.jpg-alpha'
+    classpath 'com.google.dagger:hilt-android-gradle-plugin:2.30.1-alpha'
   }
 }
 
